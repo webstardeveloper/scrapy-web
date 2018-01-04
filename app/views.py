@@ -4,6 +4,11 @@ import django
 from app.forms import UserRegistrationForm
 from django.contrib.auth.decorators import login_required
 
+from random import choice
+from string import ascii_uppercase
+
+import os
+
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -25,8 +30,18 @@ def register(request):
 @login_required(login_url='/login/')
 def search(request):
 	if request.POST:
-		print request.POST
-		os.system("sudo python scale1.py")
+		filename = "res_%s.json" % ''.join(choice(ascii_uppercase) for i in range(12))
+
+		boardCode = "100"
+		licenseType, licenseNumber, busName, firstName, lastName = \
+			request.POST['license_type'], request.POST['license_number'], \
+			request.POST['business_name'], request.POST['first_name'], \
+			request.POST['last_name']
+
+		cmd = "scrapy crawl dca -a boardCode='%s' -a licenseType='%s' -a licenseNumber='%s' -a busName='%s' -a firstName='%s' -a lastName='%s' -o %s" % (boardCode, licenseType, \
+			licenseNumber, busName, firstName, lastName, filename)
+		print cmd
+		os.system(cmd)
 	return render(request,
                   'search.html',
                   {})
