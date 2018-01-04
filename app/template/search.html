@@ -16,13 +16,15 @@
     <div class="block-header">
     	<div class="card">
             <div class="card-header">
-                <h2 style="padding-bottom: 30px;">Basic Example </h2>
+                <h2 style="padding-bottom: 30px;">Search Fields</h2>
             </div>
             <div class="card-body card-padding">
+            	<form method="post">
+            		{% csrf_token %}
             	<div class="row">
                     <div class="col-sm-4 m-b-25">
                         <div class="input-group fg-float">
-                            <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                            <span class="input-group-addon"></span>
                             <div class="fg-line">
                                 <input type="text" class="form-control" value="Barbering and Cosmetology, Board of" read-only>
                                 <label class="fg-label">BOARDS AND BUREAUS</label>
@@ -30,42 +32,66 @@
                         </div>
                     </div>
                     
-                    <div class="col-sm-4 m-b-25">
-                        <div class="input-group fg-float">
-                            <div class="fg-line">    
-                                <input type="text" class="form-control">
-                                <label class="fg-label">Location</label>
-                            </div>
-                            <span class="input-group-addon last"><i class="zmdi zmdi-my-location"></i></span>
-                        </div>
+                    <div class="col-sm-4 m-b-25" style="padding-left: 56px;">
+                        <select class="browser-default form-control input-lg" title='LICENSE TYPE' required name="license_type" style="font-size: 14px;">
+                            <option value="">LICENSE TYPE</option>
+                            <option value="1001">Barber</option>
+                            <option value="1002">Cosmetologist</option>
+                            <option value="1003">Electrologist</option>
+                            <option value="1007">Establishment</option>
+                            <option value="1004">Esthetician</option>
+                            <option value="1005">Manicurist</option>
+                            <option value="1008">Mobile Unit</option>
+                        </select>
                     </div>
                     
                     <div class="col-sm-4 m-b-25">
                         <div class="input-group fg-float">
-                            <span class="input-group-addon"><i class="zmdi zmdi-mail-send"></i></span>
+                            <span class="input-group-addon"></span>
                             <div class="fg-line">
-                                <input type="text" class="form-control">
-                                <label class="fg-label">Layers</label>
-                            </div>
-                            <span class="input-group-addon last"><i class="zmdi zmdi-layers "></i></span>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <div class="input-group fg-float">
-                            <div class="input-group fg-float">
-                            	<div class="fg-line">
-			                    <select class="selectpicker">
-                                    <option value="">LICENSE TYPE</option>
-                                    <option>Mustard</option>
-                                    <option>Ketchup</option>
-                                    <option>Relish</option>
-                                </select>
-                                </div>
+                                <input type="text" class="form-control" name="license_number" required>
+                                <label class="fg-label">LICENSE NUMBER</label>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="business_name">
+                                <label class="fg-label">BUSINESS NAME</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="first_name">
+                                <label class="fg-label">FIRST NAME</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="last_name">
+                                <label class="fg-label">LAST NAME</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                	<div class="col-sm-4"></div>
+                	<div class="col-sm-4"></div>
+                	<div class="col-sm-4">
+                		<button type="submit" class="btn btn-primary btn-sm m-t-10 waves-effect">Search</button>
+                	</div>
+                </div>
+            	</form>
             </div>
         </div>
 

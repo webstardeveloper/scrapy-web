@@ -11,12 +11,16 @@ class DCASpider(scrapy.Spider):
     name = "dca"
     domain = "https://search.dca.ca.gov"
 
-    def __init__(self, boardCode='', licenseType = "1002", licenseNumber = "123"):
+    def __init__(self, boardCode="100", licenseType = "1002", licenseNumber = "", \
+                        busName="", firstName="", lastName=""):
         self.driver = webdriver.PhantomJS() # or add to your PATH
         # self.driver.set_window_size(1024, 768) # optional
         self.boardCode = boardCode
         self.licenseType = licenseType
         self.licenseNumber = licenseNumber
+        self.busName = busName
+        self.firstName = firstName
+        self.lastName = lastName
 
     def start_requests(self):
         self.driver.get('https://search.dca.ca.gov')
@@ -32,6 +36,9 @@ class DCASpider(scrapy.Spider):
 
         Select(self.driver.find_element_by_id('licenseType')).select_by_value(self.licenseType)
         self.driver.find_element_by_id('licenseNumber').send_keys(self.licenseNumber)
+        self.driver.find_element_by_id('busName').send_keys(self.busName)
+        self.driver.find_element_by_id('firstName').send_keys(self.firstName)
+        self.driver.find_element_by_id('lastName').send_keys(self.lastName)
         self.driver.find_element_by_id('srchSubmitHome').click()
         time.sleep(2)
 

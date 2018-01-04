@@ -24,6 +24,9 @@ def register(request):
 
 @login_required(login_url='/login/')
 def search(request):
+	if request.POST:
+		print request.POST
+		os.system("sudo python scale1.py")
 	return render(request,
                   'search.html',
                   {})
