@@ -7,8 +7,15 @@
 
 import scrapy
 
-
 class LicenseItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    license_number = scrapy.Field()
+    name = scrapy.Field()
+    license_type = scrapy.Field()
+    primary_status = scrapy.Field()
+    previous_names = scrapy.Field()
+    address = scrapy.Field()
+    issuance_date = scrapy.Field()
+    expiration_date = scrapy.Field()
+    current_date_time = scrapy.Field()
+    source_url = scrapy.Field()
+

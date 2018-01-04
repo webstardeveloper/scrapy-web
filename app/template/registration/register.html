@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html>
+    <!--[if IE 9 ]><html class="ie9"><![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login</title>
+        
+        <!-- Vendor CSS -->
+        <link href="{% static 'vendors/bower_components/animate.css/animate.min.css' %}" rel="stylesheet">
+        <link href="{% static 'vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css' %}" rel="stylesheet">
+            
+        <!-- CSS -->
+        <link href="{% static 'css/app.min.1.css' %}" rel="stylesheet">
+        <link href="{% static 'css/app.min.2.css' %}" rel="stylesheet">
+        <style>
+        	.errorlist > li{
+    		    list-style-type: none;
+    			color: red;
+        	}
+        </style>
+    </head>
+    
+    <body class="login-content">
+        <!-- Register -->
+        <div class="lc-block toggled">
+        <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+            {{user_form.username.errors}}
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                	{{ user_form.username }}
+                </div>
+            </div>
+            
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+                <div class="fg-line">
+                	{{ user_form.email }}
+                </div>
+            </div>
+            
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                <div class="fg-line">
+                	{{ user_form.password }}
+                </div>
+            </div>
+            <a href="{% url 'login' %}" class="btn btn-primary btn-sm m-t-10 waves-effect">Go To Login</a>
+            
+            <div class="clearfix"></div>
+            
+            <button type="submit" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
+        </form>
+        </div>
+        
+        <!-- Javascript Libraries -->
+        <script src="{% static 'vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        
+        <script src="{% static 'vendors/bower_components/Waves/dist/waves.min.js' %}"></script>
+        
+        <!-- Placeholder for IE9 -->
+        <!--[if IE 9 ]>
+            <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+        <![endif]-->
+        
+        <script src="{% static 'js/functions.js' %}"></script>
+        <script>
+	        $(document).ready(function(){
+	            $("#id_username").attr("required", "")
+	            $("#id_password").attr("required", "")
+	        });
+	    </script>
+    </body>
+</html>
+    
