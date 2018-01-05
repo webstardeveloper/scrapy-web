@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load custom_tag %}
+
+{% block title %}Search - Florida{% endblock title %}
+
+{% block content %}
+<style>
+	button{
+		text-transform: inherit;
+	}
+</style>
+
+<link href="{% static 'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css' %}" rel="stylesheet">
+
+<div class="container">
+    <div class="block-header">
+    	<div class="card">
+            <div class="card-header">
+                <h2 style="padding-bottom: 30px;">Search - Florida</h2>
+            </div>
+            <div class="card-body card-padding">
+            	<form method="post">
+            		{% csrf_token %}
+            	<div class="row">
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" value="Cosmetology" readonly> 
+                                <label class="fg-label">License Category</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4 m-b-25" style="padding-left: 56px;">
+                        <select class="browser-default form-control input-lg" title='LICENSE TYPE' required name="license_type" style="font-size: 14px;">
+                            <option value="">License Type</option>
+                            <option value="0513" {% if licenseType == '0513' %}selected{%endif%}>Approved School Registration</option>
+                            <option value="0518" {% if licenseType == '0518' %}selected{%endif%}>Approved Special Provider</option>
+                            <option value="0504" {% if licenseType == '0504' %}selected{%endif%}>Body Wrapper</option>
+                            <option value="0501" {% if licenseType == '0501' %}selected{%endif%}>Cosmetologist</option>
+                            <option value="0510" {% if licenseType == '0510' %}selected{%endif%}>Cosmetologist Owner</option>
+                            <option value="0511" {% if licenseType == '0511' %}selected{%endif%}>Cosmetology CE Provider</option>
+                            <option value="0502" {% if licenseType == '0502' %}selected{%endif%}>Cosmetology Salon</option>
+                            <option value="0508" {% if licenseType == '0508' %}selected{%endif%}>Facial Specialist</option>
+                            <option value="0509" {% if licenseType == '0509' %}selected{%endif%}>Full Specialist</option>
+                            <option value="0506" {% if licenseType == '0506' %}selected{%endif%}>Hair Braider</option>
+                            <option value="0505" {% if licenseType == '0505' %}selected{%endif%}>Hair Wrapper</option>
+                            <option value="0503" {% if licenseType == '0503' %}selected{%endif%}>Mobile Cosmetology Salon</option>
+                            <option value="0507" {% if licenseType == '0507' %}selected{%endif%}>Nail Specialist</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="state" value="Florida" readonly>
+                                <label class="fg-label">State</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 m-b-25" style="padding-left: 56px;">
+                        <select class="browser-default form-control input-lg" title='COUNTY' required name="county" style="font-size: 14px;">
+                            <option value="">County</option>
+                            <option {% if county == '11_Alachua' %}selected{%endif%} value="11_Alachua">Alachua</option>
+                            <option {% if county == '12_Baker' %}selected{%endif%} value="12_Baker">Baker</option>
+                            <option {% if county == '13_Bay' %}selected{%endif%} value="13_Bay">Bay</option>
+                            <option {% if county == '14_Bradford' %}selected{%endif%} value="14_Bradford">Bradford</option>
+                            <option {% if county == '15_Brevard' %}selected{%endif%} value="15_Brevard">Brevard</option>
+                            <option {% if county == '16_Broward' %}selected{%endif%} value="16_Broward">Broward</option>
+                            <option {% if county == '17_Calhoun' %}selected{%endif%} value="17_Calhoun">Calhoun</option>
+                            <option {% if county == '18_Charlotte' %}selected{%endif%} value="18_Charlotte">Charlotte</option>
+                            <option {% if county == '19_Citrus' %}selected{%endif%} value="19_Citrus">Citrus</option>
+                            <option {% if county == '20_Clay' %}selected{%endif%} value="20_Clay">Clay</option>
+                            <option {% if county == '21_Collier' %}selected{%endif%} value="21_Collier">Collier</option>
+                            <option {% if county == '22_Columbia' %}selected{%endif%} value="22_Columbia">Columbia</option>
+                            <option {% if county == '23_Dade' %}selected{%endif%} value="23_Dade">Dade</option>
+                            <option {% if county == '24_DeSoto' %}selected{%endif%} value="24_DeSoto">DeSoto</option>
+                            <option {% if county == '25_Dixie' %}selected{%endif%} value="25_Dixie">Dixie</option>
+                            <option {% if county == '26_Duval' %}selected{%endif%} value="26_Duval">Duval</option>
+                            <option {% if county == '27_Escambia' %}selected{%endif%} value="27_Escambia">Escambia</option>
+                            <option {% if county == '28_Flagler' %}selected{%endif%} value="28_Flagler">Flagler</option>
+                            <option {% if county == '80_Foreign' %}selected{%endif%} value="80_Foreign">Foreign</option>
+                            <option {% if county == '29_Franklin' %}selected{%endif%} value="29_Franklin">Franklin</option>
+                            <option {% if county == '30_Gadsden' %}selected{%endif%} value="30_Gadsden">Gadsden</option>
+                            <option {% if county == '31_Gilchrist' %}selected{%endif%} value="31_Gilchrist">Gilchrist</option>
+                            <option {% if county == '32_Glades' %}selected{%endif%} value="32_Glades">Glades</option>
+                            <option {% if county == '33_Gulf' %}selected{%endif%} value="33_Gulf">Gulf</option>
+                            <option {% if county == '34_Hamilton' %}selected{%endif%} value="34_Hamilton">Hamilton</option>
+                            <option {% if county == '35_Hardee' %}selected{%endif%} value="35_Hardee">Hardee</option>
+                            <option {% if county == '36_Hendry' %}selected{%endif%} value="36_Hendry">Hendry</option>
+                            <option {% if county == '37_Hernando' %}selected{%endif%} value="37_Hernando">Hernando</option>
+                            <option {% if county == '38_Highlands' %}selected{%endif%} value="38_Highlands">Highlands</option>
+                            <option {% if county == '39_Hillsborough' %}selected{%endif%} value="39_Hillsborough">Hillsborough</option>
+                            <option {% if county == '40_Holmes' %}selected{%endif%} value="40_Holmes">Holmes</option>
+                            <option {% if county == '41_Indian River' %}selected{%endif%} value="41_Indian River">Indian River</option>
+                            <option {% if county == '42_Jackson' %}selected{%endif%} value="42_Jackson">Jackson</option>
+                            <option {% if county == '43_Jefferson' %}selected{%endif%} value="43_Jefferson">Jefferson</option>
+                            <option {% if county == '44_Lafayett' %}selected{%endif%} value="44_Lafayett">Lafayett</option>
+                            <option {% if county == '45_Lake' %}selected{%endif%} value="45_Lake">Lake</option>
+                            <option {% if county == '46_Lee' %}selected{%endif%} value="46_Lee">Lee</option>
+                            <option {% if county == '47_Leon' %}selected{%endif%} value="47_Leon">Leon</option>
+                            <option {% if county == '48_Levy' %}selected{%endif%} value="48_Levy">Levy</option>
+                            <option {% if county == '49_Liberty' %}selected{%endif%} value="49_Liberty">Liberty</option>
+                            <option {% if county == '50_Madison' %}selected{%endif%} value="50_Madison">Madison</option>
+                            <option {% if county == '51_Manatee' %}selected{%endif%} value="51_Manatee">Manatee</option>
+                            <option {% if county == '52_Marion' %}selected{%endif%} value="52_Marion">Marion</option>
+                            <option {% if county == '53_Martin' %}selected{%endif%} value="53_Martin">Martin</option>
+                            <option {% if county == '54_Monroe' %}selected{%endif%} value="54_Monroe">Monroe</option>
+                            <option {% if county == '55_Nassau' %}selected{%endif%} value="55_Nassau">Nassau</option>
+                            <option {% if county == '56_Okaloosa' %}selected{%endif%} value="56_Okaloosa">Okaloosa</option>
+                            <option {% if county == '57_Okeechobee' %}selected{%endif%} value="57_Okeechobee">Okeechobee</option>
+                            <option {% if county == '58_Orange' %}selected{%endif%} value="58_Orange">Orange</option>
+                            <option {% if county == '59_Osceola' %}selected{%endif%} value="59_Osceola">Osceola</option>
+                            <option {% if county == '79_Out of State' %}selected{%endif%} value="79_Out of State">Out of State</option>
+                            <option {% if county == '60_Palm Beach' %}selected{%endif%} value="60_Palm Beach">Palm Beach</option>
+                            <option {% if county == '61_Pasco' %}selected{%endif%} value="61_Pasco">Pasco</option>
+                            <option {% if county == '62_Pinellas' %}selected{%endif%} value="62_Pinellas">Pinellas</option>
+                            <option {% if county == '63_Polk' %}selected{%endif%} value="63_Polk">Polk</option>
+                            <option {% if county == '64_Putnam' %}selected{%endif%} value="64_Putnam">Putnam</option>
+                            <option {% if county == '67_Santa Rosa' %}selected{%endif%} value="67_Santa Rosa">Santa Rosa</option>
+                            <option {% if county == '68_Sarasota' %}selected{%endif%} value="68_Sarasota">Sarasota</option>
+                            <option {% if county == '69_Seminole' %}selected{%endif%} value="69_Seminole">Seminole</option>
+                            <option {% if county == '65_St. Johns' %}selected{%endif%} value="65_St. Johns">St. Johns</option>
+                            <option {% if county == '66_St. Lucie' %}selected{%endif%} value="66_St. Lucie">St. Lucie</option>
+                            <option {% if county == '70_Sumter' %}selected{%endif%} value="70_Sumter">Sumter</option>
+                            <option {% if county == '71_Suwannee' %}selected{%endif%} value="71_Suwannee">Suwannee</option>
+                            <option {% if county == '72_Taylor' %}selected{%endif%} value="72_Taylor">Taylor</option>
+                            <option {% if county == '73_Union' %}selected{%endif%} value="73_Union">Union</option>
+                            <option {% if county == '78_Unknown' %}selected{%endif%} value="78_Unknown">Unknown</option>
+                            <option {% if county == '74_Volusia' %}selected{%endif%} value="74_Volusia">Volusia</option>
+                            <option {% if county == '75_Wakulla' %}selected{%endif%} value="75_Wakulla">Wakulla</option>
+                            <option {% if county == '76_Walton' %}selected{%endif%} value="76_Walton">Walton</option>
+                            <option {% if county == '77_Washington' %}selected{%endif%} value="77_Washington">Washington</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="license_number" value="{{ licenseNumber|default_if_none:''}}">
+                                <label class="fg-label">License Number</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="name" value="{{ name|default_if_none:''}}">
+                                <label class="fg-label">NAME</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                	<div class="col-sm-4"></div>
+                	<div class="col-sm-4"></div>
+                	<div class="col-sm-4">
+                		<button type="submit" class="btn btn-primary btn-sm m-t-10 waves-effect">Search</button>
+                	</div>
+                </div>
+            	</form>
+            </div>
+        </div>
+
+		<div class="card">
+            <div class="card-header">
+                <h2>Results <small>It's just that simple. Turn your simple table into a sophisticated data table and offer your users a nice experience and great features without any effort.</small></h2>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="data-table-basic" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="license_number">LICENSE NUMBER</th>
+                            <th data-column-id="name">NAME</th>
+                            <th data-column-id="license_type">LICENSE TYPE</th>
+                            <th data-column-id="rank">Rank</th>
+                            <th data-column-id="main_address">Main Address</th>
+                            <th data-column-id="status">Status</th>
+                            <th data-column-id="expiration_date">EXPIRATION DATE</th>
+                            <th data-column-id="county">County</th>
+                            <th data-column-id="source_url">SOURCE URL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data %}
+                        <tr>
+                            <td>{{item|dict:"license_number"}}</td>
+                            <td>{{item|dict:"name"}}</td>
+                            <td>{{item|dict:"license_type"}}</td>
+                            <td>{{item|dict:"rank"}}</td>
+                            <td>{{item|dict:"address"}}</td>
+                            <td>{{item|dict:"primary_status"}}</td>
+                            <td>{{item|dict:"expiration_date"}}</td>
+                            <td>{{item|dict:"county"}}</td>
+                            <td>{{item|dict:"source_url"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %} 
+<script src="{% static 'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js' %}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        //Basic Example
+        $("#data-table-basic").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less'
+            },
+            caseSensitive: false
+        });
+    })
+</script>	
+{% endblock script %}
