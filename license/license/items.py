@@ -20,6 +20,5 @@ class LicenseItem(scrapy.Item):
     source_url = scrapy.Field()
 
     rank = scrapy.Field()
-    status = scrapy.Field()
     county = scrapy.Field()
 

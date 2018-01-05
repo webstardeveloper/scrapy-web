@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^password-reset/complete/$', password_reset_complete, name='password_reset_complete'),
 
     url(r'^search-dca/', views.search_dca, name='search-dca'),
+    url(r'^search-florida/', views.search_florida, name='search-florida'),
 
     url(r'^$', RedirectView.as_view(url='/search-dca/')),
 ]

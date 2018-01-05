@@ -65,3 +65,40 @@ def search_dca(request):
     else:
 
         return render(request, 'search_dca.html', {})
+
+@login_required(login_url='/login/')
+def search_florida(request):
+    if request.POST:
+        filename = os.path.join(BASE_DIR, 'tmp') + "/res_%s.json" % ''.join(choice(ascii_uppercase) for i in range(12))
+
+        licenseCategory = "05"
+        licenseType, licenseNumber, name, county = \
+            request.POST['license_type'], request.POST['license_number'], \
+            request.POST['name'], request.POST['county']
+
+        # tmp_licenseType = "0" if licenseType == "all" else licenseType
+
+        cmd = "python %s %s --type %s --number '%s' --name '%s' --county '%s' --file %s" % \
+            (os.path.join(BASE_DIR, 'license') + "/start_florida.py", licenseCategory, licenseType, \
+            licenseNumber, name, county, filename)
+
+        os.system(cmd)
+        data = open(filename, "r").read()
+        os.remove(filename)
+
+        print cmd
+
+        try:
+          data = json.loads(data)
+        except:
+          data = ""
+
+        return render(request, 'search_florida.html',
+                  {"data": data, "licenseCategory": licenseCategory, \
+                  "licenseType": licenseType, \
+                  "licenseNumber": licenseNumber, "name": name, \
+                  "county": county})
+
+    else:
+
+        return render(request, 'search_florida.html', {})
