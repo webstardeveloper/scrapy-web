@@ -22,6 +22,7 @@ from django.contrib.auth.views import (logout, login, password_change, password_
                                         password_reset_confirm, password_reset_complete)
 
 from app import views
+from django.views.generic import RedirectView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -41,5 +42,7 @@ urlpatterns = [
     url(r'^password-reset/confirm/(?P<uidb64>[-\w]+)/(?P<token>[-\w]+)/$', password_reset_confirm, name='password_reset_confirm'),
     url(r'^password-reset/complete/$', password_reset_complete, name='password_reset_complete'),
 
-    url(r'^search/', views.search, name='search'),
+    url(r'^search-dca/', views.search_dca, name='search-dca'),
+
+    url(r'^$', RedirectView.as_view(url='/search-dca/')),
 ]

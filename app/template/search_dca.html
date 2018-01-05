@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load custom_tag %}
+
+{% block title %}Search - DCA{% endblock title %}
+
+{% block content %}
+<style>
+	button{
+		text-transform: inherit;
+	}
+</style>
+
+<link href="{% static 'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css' %}" rel="stylesheet">
+
+<div class="container">
+    <div class="block-header">
+    	<div class="card">
+            <div class="card-header">
+                <h2 style="padding-bottom: 30px;">Search - DCA</h2>
+            </div>
+            <div class="card-body card-padding">
+            	<form method="post">
+            		{% csrf_token %}
+            	<div class="row">
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" value="Barbering and Cosmetology, Board of" readonly> 
+                                <label class="fg-label">BOARDS AND BUREAUS</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4 m-b-25" style="padding-left: 56px;">
+                        <select class="browser-default form-control input-lg" title='LICENSE TYPE' required name="license_type" style="font-size: 14px;">
+                            <option value="">LICENSE TYPE</option>
+                            <option value="all" {% if licenseType == 'all' %}selected{%endif%}>All</option>
+                            <option value="1001" {% if licenseType == '1001' %}selected{%endif%}>Barber</option>
+                            <option value="1002" {% if licenseType == '1002' %}selected{%endif%}>Cosmetologist</option>
+                            <option value="1003" {% if licenseType == '1003' %}selected{%endif%}>Electrologist</option>
+                            <option value="1007" {% if licenseType == '1007' %}selected{%endif%}>Establishment</option>
+                            <option value="1004" {% if licenseType == '1004' %}selected{%endif%}>Esthetician</option>
+                            <option value="1005" {% if licenseType == '1005' %}selected{%endif%}>Manicurist</option>
+                            <option value="1008" {% if licenseType == '1008' %}selected{%endif%}>Mobile Unit</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="license_number" required value="{{ licenseNumber|default_if_none:''}}">
+                                <label class="fg-label">LICENSE NUMBER</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="business_name" value="{{ busName|default_if_none:''}}">
+                                <label class="fg-label">BUSINESS NAME</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="first_name" value="{{ firstName|default_if_none:''}}">
+                                <label class="fg-label">FIRST NAME</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 m-b-25">
+                        <div class="input-group fg-float">
+                            <span class="input-group-addon"></span>
+                            <div class="fg-line">
+                                <input type="text" class="form-control" name="last_name" value="{{ lastName|default_if_none:''}}">
+                                <label class="fg-label">LAST NAME</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                	<div class="col-sm-4"></div>
+                	<div class="col-sm-4"></div>
+                	<div class="col-sm-4">
+                		<button type="submit" class="btn btn-primary btn-sm m-t-10 waves-effect">Search</button>
+                	</div>
+                </div>
+            	</form>
+            </div>
+        </div>
+
+		<div class="card">
+            <div class="card-header">
+                <h2>Results <small>It's just that simple. Turn your simple table into a sophisticated data table and offer your users a nice experience and great features without any effort.</small></h2>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="data-table-basic" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="license_number">LICENSE NUMBER</th>
+                            <th data-column-id="name">NAME</th>
+                            <th data-column-id="license_type">LICENSE TYPE</th>
+                            <th data-column-id="primary_status">PRIMARY STATUS</th>
+                            <th data-column-id="previous_names">PREVIOUS NAMES</th>
+                            <th data-column-id="address">ADDRESS</th>
+                            <th data-column-id="expiration_date">EXPIRATION DATE</th>
+                            <th data-column-id="current_date_time">CURRENT DATE / TIME</th>
+                            <th data-column-id="source_url">SOURCE URL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data %}
+                        <tr>
+                            <td>{{item|dict:"license_number"}}</td>
+                            <td>{{item|dict:"name"}}</td>
+                            <td>{{item|dict:"license_type"}}</td>
+                            <td>{{item|dict:"primary_status"}}</td>
+                            <td>{{item|dict:"previous_names"}}</td>
+                            <td>{{item|dict:"address"}}</td>
+                            <td>{{item|dict:"expiration_date"}}</td>
+                            <td>{{item|dict:"current_date_time"}}</td>
+                            <td>{{item|dict:"source_url"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %} 
+<script src="{% static 'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js' %}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        //Basic Example
+        $("#data-table-basic").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less'
+            },
+            caseSensitive: false
+        });
+    })
+</script>	
+{% endblock script %}

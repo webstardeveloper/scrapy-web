@@ -36,9 +36,11 @@ class DCASpider(scrapy.Spider):
 
         Select(self.driver.find_element_by_id('licenseType')).select_by_value(self.licenseType)
         self.driver.find_element_by_id('licenseNumber').send_keys(self.licenseNumber)
-        self.driver.find_element_by_id('busName').send_keys(self.busName)
-        self.driver.find_element_by_id('firstName').send_keys(self.firstName)
-        self.driver.find_element_by_id('lastName').send_keys(self.lastName)
+        if self.busName != "":
+            self.driver.find_element_by_id('busName').send_keys(self.busName)
+        else:
+            self.driver.find_element_by_id('firstName').send_keys(self.firstName)
+            self.driver.find_element_by_id('lastName').send_keys(self.lastName)
         self.driver.find_element_by_id('srchSubmitHome').click()
         time.sleep(2)
 

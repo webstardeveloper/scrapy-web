@@ -8,6 +8,8 @@ from random import choice
 from string import ascii_uppercase
 
 import os
+import json
+from SearchDCA.settings import BASE_DIR
 
 def register(request):
     if request.method == 'POST':
@@ -28,20 +30,38 @@ def register(request):
                   {'user_form': user_form})
 
 @login_required(login_url='/login/')
-def search(request):
-	if request.POST:
-		filename = "res_%s.json" % ''.join(choice(ascii_uppercase) for i in range(12))
+def search_dca(request):
+    if request.POST:
+        filename = os.path.join(BASE_DIR, 'tmp') + "/res_%s.json" % ''.join(choice(ascii_uppercase) for i in range(12))
 
-		boardCode = "100"
-		licenseType, licenseNumber, busName, firstName, lastName = \
-			request.POST['license_type'], request.POST['license_number'], \
-			request.POST['business_name'], request.POST['first_name'], \
-			request.POST['last_name']
+        boardCode = "100"
+        licenseType, licenseNumber, busName, firstName, lastName = \
+            request.POST['license_type'], request.POST['license_number'], \
+            request.POST['business_name'], request.POST['first_name'], \
+            request.POST['last_name']
 
-		cmd = "scrapy crawl dca -a boardCode='%s' -a licenseType='%s' -a licenseNumber='%s' -a busName='%s' -a firstName='%s' -a lastName='%s' -o %s" % (boardCode, licenseType, \
-			licenseNumber, busName, firstName, lastName, filename)
-		print cmd
-		os.system(cmd)
-	return render(request,
-                  'search.html',
-                  {})
+        tmp_licenseType = "0" if licenseType == "all" else licenseType
+
+        cmd = "python %s %s --type %s --number '%s' --bus '%s' --first '%s' --last '%s' --file %s" % \
+            (os.path.join(BASE_DIR, 'license') + "/start.py", boardCode, tmp_licenseType, \
+            licenseNumber, busName, firstName, lastName, filename)
+
+        os.system(cmd)
+        data = open(filename, "r").read()
+        os.remove(filename)
+
+        print cmd
+
+        try:
+          data = json.loads(data)
+        except:
+          data = ""
+
+        return render(request, 'search_dca.html',
+                  {"data": data, "boardCode": boardCode, "licenseType": licenseType, \
+                  "licenseNumber": licenseNumber, "busName": busName, \
+                  "firstName": firstName, "lastName": lastName})
+
+    else:
+
+        return render(request, 'search_dca.html', {})

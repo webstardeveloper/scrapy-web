@@ -19,3 +19,7 @@ class LicenseItem(scrapy.Item):
     current_date_time = scrapy.Field()
     source_url = scrapy.Field()
 
+    rank = scrapy.Field()
+    status = scrapy.Field()
+    county = scrapy.Field()
+
