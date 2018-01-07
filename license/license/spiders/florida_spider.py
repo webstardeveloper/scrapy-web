@@ -52,8 +52,11 @@ class FloridaSpider(scrapy.Spider):
 
         source = self.driver.page_source.encode("utf8")
 
-        total_page = int(source.split('Page 1 of')[1].strip().split(' ')[0].strip())
-        
+        try:
+            total_page = int(source.split('Page 1 of')[1].strip().split(' ')[0].strip())
+        except:
+            total_page = 1
+
         index = 1
 
         while index <= total_page:
